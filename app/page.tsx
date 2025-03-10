@@ -18,6 +18,7 @@ const LoginPage = () => {
         username,
         password,
       });
+      const role = response.data.role;
 
       if (response.data.success === false) {
         return toast(response.data.message, {
@@ -33,8 +34,12 @@ const LoginPage = () => {
         type: "success",
       });
 
-      if (response.data.role === "ADMIN") {
-        setTimeout(() => router.replace("/karyawan/Customer"), 1000);
+      if (role === `ADMIN`) {
+        /** dorect ke halaman kereta */
+        setTimeout(() => router.replace(`/karyawan/kereta`), 1000);
+      } else if (role === `CUSTOMER`) {
+        // direct to schedule page
+        setTimeout(() => router.replace(`customer/jadwal`), 1000);
       }
     } catch (error) {
       console.log(error);

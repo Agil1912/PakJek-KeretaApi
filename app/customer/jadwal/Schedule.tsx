@@ -1,12 +1,11 @@
-import { ScheduleType } from "../types";
-import DropSchedule from "./dropSchedule";
-import EditSchedule from "./editSchedule";
+import { ScheduleType } from "@/app/karyawan/types";
+import Link from "next/link";
 
 type Props = {
   item: ScheduleType;
 };
 
-export const showType = (date: string) => {
+const showType = (date: string) => {
   const currentDate = new Date(date);
   return currentDate.toLocaleTimeString(`id-ID`, {
     year: "numeric",
@@ -14,7 +13,7 @@ export const showType = (date: string) => {
     day: "2-digit",
   });
 };
-const Schedule = (myProps: Props) => {
+const Schedule = async (myProps: Props) => {
   return (
     <div className="flex flex-wrap w-full border rounded-md shadow-md my-2">
       <div className="w-full md:w-3/12 p-3 flex flex-col">
@@ -48,9 +47,15 @@ const Schedule = (myProps: Props) => {
           })}
         </strong>
       </div>
-      <div className="flex gap-2 items-center">
-        <EditSchedule item={myProps.item} />
-        <DropSchedule schedule={myProps.item} />
+      <div className="w-full md:w-2/12 p-3 gap-2 flex flex-col">
+        <small className="text-sm font-medium">Opsi</small>
+        <div className="flex gap-2 items-center">
+          <Link href={`/customer/jadwal/${myProps.item.id}`}>
+            <button className="px-4 py-2 rounded-md bg-orange-500 hover:bg-orange-600 text-white">
+              Pesan
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
